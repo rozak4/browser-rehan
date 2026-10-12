@@ -1,0 +1,942 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030715">
+<title>REHAN // LEVEL 13</title>
+
+<style>
+:root {
+  --cyan: #83e2ff;
+  --blue: #438aff;
+  --white: #edf6ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  color: var(--white);
+  background:
+    radial-gradient(ellipse at 50% 35%, #152b54 0%, #080f25 45%, #030715 100%);
+  overflow-x: hidden;
+}
+
+button, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#stars, #confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#stars {
+  z-index: 0;
+}
+
+#confetti {
+  z-index: 8;
+}
+
+.planet {
+  position: fixed;
+  width: 205px;
+  height: 205px;
+  top: 8%;
+  right: -100px;
+  border-radius: 50%;
+  opacity: .43;
+  background: radial-gradient(
+    circle at 30% 25%,
+    #c0f2ff,
+    #4387de 33%,
+    #142a59 70%,
+    #070a18
+  );
+  box-shadow: 0 0 65px #348bff32;
+  animation: planetFloat 9s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.planet::after {
+  content: "";
+  position: absolute;
+  top: 70px;
+  left: -37px;
+  width: 280px;
+  height: 65px;
+  border: 2px solid #a8dbff72;
+  border-radius: 50%;
+  transform: rotate(-24deg);
+}
+
+@keyframes planetFloat {
+  50% {
+    transform: translateY(18px) rotate(8deg);
+  }
+}
+
+.shooting-star {
+  position: fixed;
+  z-index: 1;
+  top: 15%;
+  left: -170px;
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #c5f4ff);
+  box-shadow: 0 0 12px #63d5ff;
+  transform: rotate(-28deg);
+  animation: shoot 7s linear infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+}
+
+@keyframes shoot {
+  0%, 70% {
+    left: -170px;
+    top: 15%;
+    opacity: 0;
+  }
+  72% {
+    opacity: 1;
+  }
+  87% {
+    left: 110%;
+    top: 60%;
+    opacity: 0;
+  }
+  100% {
+    left: 110%;
+    opacity: 0;
+  }
+}
+
+.screen {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 30px 15px;
+}
+
+.panel {
+  width: min(100%, 680px);
+  padding: clamp(24px, 6vw, 48px);
+  text-align: center;
+  border: 1px solid #78caff35;
+  border-radius: 26px;
+  background: linear-gradient(145deg, #111f3ce8, #080d20f2);
+  box-shadow:
+    0 0 70px #176bff15,
+    inset 0 0 35px #58b7ff08;
+  backdrop-filter: blur(12px);
+  animation: appear .8s ease both;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--cyan);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(39px, 9vw, 70px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  overflow-wrap: anywhere;
+  background: linear-gradient(110deg, #fff, #79ddff 50%, #a4aaff);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.subtitle {
+  margin: 15px 0 0;
+  color: #aebfdc;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.divider {
+  width: 70px;
+  height: 2px;
+  margin: 25px auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--cyan),
+    transparent
+  );
+}
+
+.intro-text {
+  color: #cad8ed;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.gift-wrap {
+  margin: 28px 0 22px;
+}
+
+.gift {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: clamp(90px, 22vw, 125px);
+  line-height: 1.3;
+  filter: drop-shadow(0 0 22px #3b9dff70);
+  animation: giftFloat 2s ease-in-out infinite;
+}
+
+@keyframes giftFloat {
+  50% {
+    transform: translateY(-9px) rotate(3deg);
+  }
+}
+
+.gift:hover {
+  filter: drop-shadow(0 0 32px #66c9ff);
+}
+
+.btn {
+  padding: 14px 21px;
+  color: #041021;
+  font-weight: 850;
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  border: 1px solid #a0e6ff85;
+  border-radius: 12px;
+  background: linear-gradient(100deg, #6dd8ff, #b1d0ff);
+  box-shadow: 0 0 24px #319aff22;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px #319aff55;
+}
+
+.btn.secondary {
+  color: #dff6ff;
+  background: #122441;
+  border-color: #6ecfff55;
+  box-shadow: none;
+}
+
+.small-note {
+  margin: 18px 0 0;
+  color: #8192b2;
+  font-size: 10px;
+  letter-spacing: .7px;
+}
+
+.level {
+  display: inline-block;
+  margin-top: 21px;
+  padding: 8px 14px;
+  color: #a0e7ff;
+  background: #1640783b;
+  border: 1px solid #72d7ff55;
+  border-radius: 99px;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.message {
+  max-width: 490px;
+  margin: 20px auto;
+  color: #c9d7eb;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 26px 0;
+}
+
+.stat {
+  padding: 15px 5px;
+  border: 1px solid #73baff26;
+  border-radius: 14px;
+  background: #0d1930b5;
+}
+
+.stat strong {
+  display: block;
+  color: var(--cyan);
+  font-size: 23px;
+}
+
+.stat span {
+  display: block;
+  margin-top: 5px;
+  color: #91a5c5;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.music-box {
+  margin: 24px 0;
+  padding: 19px;
+  text-align: left;
+  background: #0a1730c9;
+  border: 1px solid #63caff40;
+  border-radius: 17px;
+}
+
+.music-title {
+  margin: 0 0 8px;
+  color: #9be5ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.music-description {
+  margin: 0 0 14px;
+  color: #9aaccb;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+#songSelect {
+  width: 100%;
+  padding: 13px;
+  color: #edf6ff;
+  background: #101e3c;
+  border: 1px solid #63d5ff70;
+  border-radius: 10px;
+  outline: none;
+}
+
+#songSelect:focus {
+  border-color: #9aeaff;
+  box-shadow: 0 0 0 3px #63d5ff22;
+}
+
+#songSelect option {
+  color: #edf6ff;
+  background: #101e3c;
+}
+
+.music-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.music-actions .btn {
+  flex: 1;
+  min-width: 125px;
+}
+
+#songStatus {
+  margin: 12px 0 0;
+  color: #a9c1df;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.surprise {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #69cfff40;
+  border-radius: 15px;
+  background: #0b1730;
+  color: #dceaff;
+  line-height: 1.8;
+  animation: appear .5s ease;
+}
+
+.footer {
+  margin-top: 28px;
+  color: #7187a8;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 420px) {
+  .panel {
+    border-radius: 21px;
+  }
+
+  .eyebrow {
+    letter-spacing: 2px;
+  }
+
+  .stat strong {
+    font-size: 19px;
+  }
+
+  .music-box {
+    padding: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<canvas id="confetti"></canvas>
+
+<div class="planet"></div>
+<div class="shooting-star"></div>
+
+<audio id="musik" preload="none" loop></audio>
+
+<main class="screen">
+
+  <!-- HALAMAN PEMBUKA -->
+  <section id="intro" class="panel">
+
+    <p class="eyebrow">✦ INCOMING TRANSMISSION ✦</p>
+
+    <h1>HEY,<br>REHAN.</h1>
+
+    <p class="subtitle">A NEW GALAXY AWAITS YOU</p>
+
+    <div class="divider"></div>
+
+    <p class="intro-text">
+      Ada sesuatu yang dikirim khusus untukmu.<br>
+      Misi rahasia siap dibuka.
+    </p>
+
+    <div class="gift-wrap">
+      <button
+        class="gift"
+        id="giftBtn"
+        type="button"
+        aria-label="Buka hadiah">
+        🎁
+      </button>
+    </div>
+
+    <button class="btn" id="openBtn" type="button">
+      BUKA HADIAH ↗
+    </button>
+
+    <p class="small-note">
+      TAP THE GIFT TO UNLOCK YOUR NEXT LEVEL
+    </p>
+
+  </section>
+
+  <!-- HALAMAN ULANG TAHUN -->
+  <section id="birthday" class="panel hidden">
+
+    <p class="eyebrow">✦ MISSION COMPLETED ✦</p>
+
+    <h1>HAPPY<br>BIRTHDAY!</h1>
+
+    <p class="subtitle">WELCOME TO YOUR NEW GALAXY</p>
+
+    <div class="level">★ REHAN // LEVEL 13 ★</div>
+
+    <div class="divider"></div>
+
+    <p class="message">
+      Selamat ulang tahun, Rehan! 🎉<br><br>
+
+      Selamat memasuki level baru dalam hidupmu.
+      Semoga tahun ini dipenuhi kebahagiaan, kesehatan,
+      pengalaman seru, dan banyak hal baik.
+      Terus berkembang, berani mencoba hal baru,
+      dan jangan berhenti mengejar impianmu.<br><br>
+
+      <strong style="color:#8cddff">
+        Your next adventure starts now.
+      </strong>
+    </p>
+
+    <div class="stats">
+
+      <div class="stat">
+        <strong>13</strong>
+        <span>NEW LEVEL</span>
+      </div>
+
+      <div class="stat">
+        <strong>∞</strong>
+        <span>DREAMS</span>
+      </div>
+
+      <div class="stat">
+        <strong>365</strong>
+        <span>NEW CHANCES</span>
+      </div>
+
+    </div>
+
+    <!-- PILIHAN LAGU -->
+    <div class="music-box">
+
+      <p class="music-title">♫ MIDNIGHT RADIO</p>
+
+      <p class="music-description">
+        Pilih lagu Sheila On 7 favoritmu.
+        Musik diputar tanpa menampilkan videonya.
+      </p>
+
+      <label
+        for="songSelect"
+        class="small-note"
+        style="display:block;margin:0 0 9px">
+        PILIH LAGU
+      </label>
+
+      <select id="songSelect">
+        <option value="" selected disabled>
+          -- Pilih lagu favoritmu --
+        </option>
+
+        <option value="songs/film-favorit.mp3">
+          Film Favorit
+        </option>
+
+        <option value="songs/kita.mp3">
+          Kita
+        </option>
+
+        <option value="songs/lapang-dada.mp3">
+          Lapang Dada
+        </option>
+
+        <option value="songs/melompat-lebih-tinggi.mp3">
+          Melompat Lebih Tinggi
+        </option>
+
+        <option value="songs/memori-baik.mp3">
+          Memori Baik
+        </option>
+
+        <option value="songs/pemuja-rahasia.mp3">
+          Pemuja Rahasia
+        </option>
+
+        <option value="songs/seberapa-pantas.mp3">
+          Seberapa Pantas
+        </option>
+
+        <option value="songs/sephia.mp3">
+          Sephia
+        </option>
+      </select>
+
+      <div class="music-actions">
+
+        <button class="btn" id="playBtn" type="button">
+          ▶ PUTAR LAGU
+        </button>
+
+        <button class="btn secondary" id="stopBtn" type="button">
+          Ⅱ JEDA
+        </button>
+
+      </div>
+
+      <p id="songStatus" role="status" aria-live="polite">
+        Pilih lagu dari daftar untuk memulai.
+      </p>
+
+    </div>
+
+    <!-- TOMBOL KEJUTAN -->
+    <button class="btn" id="surpriseBtn" type="button">
+      BUKA KEJUTAN ✦
+    </button>
+
+    <div id="surprise" class="surprise hidden">
+
+      <p style="font-size:27px;margin:0 0 10px">
+        🌌 🚀 ✨
+      </p>
+
+      <strong style="color:#8cddff">
+        SPECIAL MESSAGE FOR REHAN
+      </strong>
+
+      <p style="margin:10px 0 0">
+        Semoga langkahmu selalu menuju hal-hal baik.
+        Semoga makin banyak alasan untuk tertawa,
+        makin banyak mimpi yang tercapai,
+        dan makin banyak cerita keren untuk dikenang.
+      </p>
+
+      <p style="margin:13px 0 0">
+        HAVE AN AWESOME BIRTHDAY! 🎂
+      </p>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="footer">
+      REHAN // LEVEL 13 · MIDNIGHT GALAXY
+    </p>
+
+  </section>
+
+</main>
+
+<script>
+/* =================================
+   BUKA HADIAH
+================================= */
+
+const intro = document.getElementById("intro");
+const birthday = document.getElementById("birthday");
+
+let opened = false;
+
+function openGift() {
+  if (opened) return;
+
+  opened = true;
+
+  intro.classList.add("hidden");
+  birthday.classList.remove("hidden");
+
+  launchConfetti();
+}
+
+document.getElementById("giftBtn")
+  .addEventListener("click", openGift);
+
+document.getElementById("openBtn")
+  .addEventListener("click", openGift);
+
+
+/* =================================
+   PEMUTAR LAGU
+================================= */
+
+const music = document.getElementById("musik");
+const songSelect = document.getElementById("songSelect");
+const songStatus = document.getElementById("songStatus");
+const playBtn = document.getElementById("playBtn");
+const stopBtn = document.getElementById("stopBtn");
+
+let chosenSong = "";
+
+function selectedSongName() {
+  if (songSelect.selectedIndex < 0) {
+    return "";
+  }
+
+  return songSelect.options[songSelect.selectedIndex].text;
+}
+
+async function playSelectedSong() {
+  const file = songSelect.value;
+
+  if (!file) {
+    songStatus.textContent =
+      "Pilih lagu dahulu sebelum memutar musik.";
+
+    songSelect.focus();
+    return;
+  }
+
+  if (chosenSong !== file) {
+    music.pause();
+
+    music.src = file;
+    chosenSong = file;
+
+    music.load();
+  }
+
+  songStatus.textContent =
+    "Memuat lagu: " + selectedSongName() + "...";
+
+  try {
+    await music.play();
+
+    songStatus.textContent =
+      "♫ Sedang diputar: " + selectedSongName();
+
+    playBtn.textContent = "▶ PUTAR ULANG";
+
+  } catch (error) {
+    songStatus.textContent =
+      "Lagu gagal diputar. Periksa file dan format audio MP4.";
+  }
+}
+
+playBtn.addEventListener("click", playSelectedSong);
+
+songSelect.addEventListener("change", () => {
+  chosenSong = "";
+  playSelectedSong();
+});
+
+stopBtn.addEventListener("click", () => {
+  music.pause();
+
+  if (music.currentSrc) {
+    songStatus.textContent =
+      "Musik dijeda: " + selectedSongName();
+  } else {
+    songStatus.textContent =
+      "Belum ada lagu yang diputar.";
+  }
+});
+
+music.addEventListener("ended", () => {
+  playBtn.textContent = "▶ PUTAR LAGU";
+});
+
+music.addEventListener("error", () => {
+  songStatus.textContent =
+    "File tidak bisa diputar. Periksa folder songs atau gunakan MP3.";
+});
+
+
+/* =================================
+   KEJUTAN ULANG TAHUN
+================================= */
+
+const surprise = document.getElementById("surprise");
+const surpriseBtn = document.getElementById("surpriseBtn");
+
+surpriseBtn.addEventListener("click", () => {
+  surprise.classList.toggle("hidden");
+
+  surpriseBtn.textContent =
+    surprise.classList.contains("hidden")
+      ? "BUKA KEJUTAN ✦"
+      : "TUTUP KEJUTAN ↑";
+
+  if (!surprise.classList.contains("hidden")) {
+    launchConfetti();
+  }
+});
+
+
+/* =================================
+   ANIMASI BINTANG
+================================= */
+
+const starsCanvas = document.getElementById("stars");
+const starsCtx = starsCanvas.getContext("2d");
+
+let stars = [];
+
+function resizeStars() {
+  const ratio = Math.min(
+    window.devicePixelRatio || 1,
+    2
+  );
+
+  starsCanvas.width = innerWidth * ratio;
+  starsCanvas.height = innerHeight * ratio;
+
+  starsCanvas.style.width = innerWidth + "px";
+  starsCanvas.style.height = innerHeight + "px";
+
+  starsCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  stars = Array.from(
+    {
+      length: Math.min(
+        180,
+        Math.floor(innerWidth / 5)
+      )
+    },
+    () => ({
+      x: Math.random() * innerWidth,
+      y: Math.random() * innerHeight,
+      r: Math.random() * 1.5 + .25,
+      phase: Math.random() * 6,
+      speed: Math.random() * .025 + .006
+    })
+  );
+}
+
+function drawStars() {
+  starsCtx.clearRect(
+    0, 0, innerWidth, innerHeight
+  );
+
+  for (const star of stars) {
+    star.phase += star.speed;
+
+    const alpha =
+      .2 + Math.abs(Math.sin(star.phase)) * .8;
+
+    starsCtx.beginPath();
+
+    starsCtx.arc(
+      star.x,
+      star.y,
+      star.r,
+      0,
+      Math.PI * 2
+    );
+
+    starsCtx.fillStyle =
+      `rgba(190,225,255,${alpha})`;
+
+    starsCtx.fill();
+  }
+
+  requestAnimationFrame(drawStars);
+}
+
+resizeStars();
+drawStars();
+
+window.addEventListener("resize", resizeStars);
+
+
+/* =================================
+   ANIMASI CONFETTI
+================================= */
+
+const confettiCanvas =
+  document.getElementById("confetti");
+
+const confettiCtx =
+  confettiCanvas.getContext("2d");
+
+let pieces = [];
+let confettiFrame = null;
+
+function resizeConfetti() {
+  const ratio = Math.min(
+    window.devicePixelRatio || 1,
+    2
+  );
+
+  confettiCanvas.width = innerWidth * ratio;
+  confettiCanvas.height = innerHeight * ratio;
+
+  confettiCanvas.style.width = innerWidth + "px";
+  confettiCanvas.style.height = innerHeight + "px";
+
+  confettiCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+}
+
+resizeConfetti();
+
+window.addEventListener("resize", resizeConfetti);
+
+function launchConfetti() {
+  pieces = Array.from(
+    { length: 150 },
+    () => ({
+      x: Math.random() * innerWidth,
+      y: -20 - Math.random() * innerHeight * .35,
+      size: Math.random() * 5 + 2,
+      speed: Math.random() * 3 + 2,
+      drift: (Math.random() - .5) * 2,
+      rotation: Math.random() * 6,
+      spin: (Math.random() - .5) * .12,
+
+      color: [
+        "#71d9ff",
+        "#a8b7ff",
+        "#ffffff",
+        "#5188ff",
+        "#8ffff0"
+      ][Math.floor(Math.random() * 5)]
+    })
+  );
+
+  if (!confettiFrame) {
+    animateConfetti();
+  }
+}
+
+function animateConfetti() {
+  confettiCtx.clearRect(
+    0, 0, innerWidth, innerHeight
+  );
+
+  for (const p of pieces) {
+    p.y += p.speed;
+    p.x += p.drift;
+    p.rotation += p.spin;
+
+    confettiCtx.save();
+
+    confettiCtx.translate(p.x, p.y);
+    confettiCtx.rotate(p.rotation);
+
+    confettiCtx.fillStyle = p.color;
+
+    confettiCtx.fillRect(
+      -p.size / 2,
+      -p.size / 2,
+      p.size,
+      p.size * 1.8
+    );
+
+    confettiCtx.restore();
+  }
+
+  pieces = pieces.filter(
+    p => p.y < innerHeight + 30
+  );
+
+  if (pieces.length > 0) {
+    confettiFrame =
+      requestAnimationFrame(animateConfetti);
+  } else {
+    confettiCtx.clearRect(
+      0, 0, innerWidth, innerHeight
+    );
+
+    confettiFrame = null;
+  }
+}
+</script>
+
+</body>
+</html>
